@@ -1,0 +1,42 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Todo App</title>
+</head>
+<body>
+    <div class="title">
+        <h1 id="head_1">Sevat Technologies</h1>
+        <div class="container">
+            <h1 id="head_2">WHAT DO YOU WANT TO DO TODAY?</h1>
+            <form action="{% url 'add' %}" method="POST">
+                {% csrf_token %}
+                <label for="inpu" id="lab" >Enter the todo</label><br>
+                {{form.text}}
+                <button type="submit" class="add" >ADD</button><br>
+            </form>
+            <a href="{% url 'compdel' %}"><button class="but" >Delete Completed</button></a>
+            <a href="{% url 'delete' %}"><button class="but" >Delete All</button></a>
+            <ul class="complete" id="com" ><h2>Incomplete</h2>
+                {% for Todo in Todo_list %}
+                {% if not Todo.complete %}
+                    <li class="complete" id="list-incomp">{{Todo.text}}<a href="{% url 'complete' Todo.id %}"><button class="add">Complete</button></a></li><br> 
+                {% endif %}
+                {% endfor %}
+            </ul> 
+            <ul id="com1"><h2>Completed</h2>
+                {% for Todo in Todo_list %}
+                {% if Todo.complete %}    
+                <li id="list-comp">{{Todo.text}}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
+
